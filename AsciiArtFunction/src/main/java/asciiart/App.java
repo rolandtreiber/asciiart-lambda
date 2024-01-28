@@ -244,6 +244,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
             if (hps != null) {
                 contentType = hps.get("Content-Type");
+                if (contentType == null) {
+                    contentType =  hps.get("content-type");
+                }
             }
             logger.log("Content Type: " + contentType);
 
@@ -343,7 +346,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
             String presignedUrl = getPresignedUrl(fileName+".png");
             String output = "{ " +
-                    "\"message\": " + "\"success\"}" +
+                    "\"message\": " + "\"success\"," +
                     "\"url\": " + "\"" + presignedUrl + "\"}";
 
             return response
